@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# پروژه مدیریت اتوماسیون اداری تیکت
 
-First, run the development server:
+این پروژه یک سیستم مدیریت اتوماسیون اداری با قابلیت مدیریت تیکت‌ها، کاربران، دسته‌بندی‌ها و دپارتمان‌ها است. پروژه با استفاده از **Next.js**، **TypeScript**، **Tailwind CSS**، **Mongoose** و **Toast** ساخته شده است.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+برای اجرای پروژه ابتدا باید ملزومات نصب شوند:
+
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+سپس برای اجرای پروژه:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+پروژه به صورت لوکال روی آدرس پیش‌فرض `http://localhost:3000` اجرا خواهد شد.
 
-## Learn More
+پروژه شامل صفحات زیر است:
 
-To learn more about Next.js, take a look at the following resources:
+- `/dashboard` - داشبورد اصلی  
+- `/profile` - پروفایل کاربر  
+- `/settings` - تنظیمات  
+- `/tickets/all` - همه تیکت‌ها  
+- `/tickets/my` - تیکت‌های کاربر  
+- `/tickets/new` - ایجاد تیکت جدید  
+- `/tickets/assigned` - تیکت‌های اختصاص داده شده  
+- `/tickets/[id]` - نمایش جزئیات یک تیکت  
+- `/users` - مدیریت کاربران  
+- `/auth` - صفحه لاگین/ثبت‌نام  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ویژگی‌های پروژه:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **مدیریت کاربران**: ادمین می‌تواند کاربران جدید اضافه کند یا حذف کند.  
+- **مدیریت دسته‌بندی و دپارتمان**: قابلیت اضافه، ویرایش و حذف دسته‌بندی‌ها و دپارتمان‌ها.  
+- **سیستم تیکت**: کاربران می‌توانند تیکت جدید ایجاد کنند و ادمین یا سایر کاربران مسئول آن‌ها شوند.  
+- **حذف و مدیریت تیکت‌ها**: امکان حذف و مدیریت تیکت‌ها برای ادمین.  
+- **ثبت‌نام و ورود کاربران**: کاربران می‌توانند ثبت‌نام کنند و لاگین شوند.  
 
-## Deploy on Vercel
+تکنولوژی‌های استفاده شده:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js** - فریم‌ورک React برای SSR و SSG  
+- **TypeScript** - تایپینگ ایمن در جاوااسکریپت  
+- **Tailwind CSS** - فریم‌ورک CSS برای استایل‌دهی سریع  
+- **Mongoose** - ODM برای MongoDB  
+- **Toast** - نمایش اعلان‌های موفقیت یا خطا  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+نحوه اجرای پروژه:
+
+1. کلون کردن مخزن:
+
+```
+git clone <آدرس ریپازیتوری>
+cd <نام پوشه پروژه>
+```
+
+2. نصب پکیج‌ها:
+
+```
+npm install
+```
+
+3. اجرای پروژه:
+
+```
+npm run dev
+```
+
+ساختار پروژه:
+
+- `pages/` - شامل تمام صفحات پروژه  
+- `components/` - شامل کامپوننت‌های مشترک  
+- `utils/` - شامل تنظیمات اتصال به token و توابع کمکی   
+
+توجه‌ها:
+
+- برای تست عملکرد ادمین، یک کاربر با دسترسی ادمین باید ایجاد شود.  
+- استفاده از Toast برای اطلاع‌رسانی موفقیت یا خطا در عملیات‌ها پیاده‌سازی شده است.  
+
+لایسنس:
+
+این پروژه تحت مجوز MIT منتشر شده است.
