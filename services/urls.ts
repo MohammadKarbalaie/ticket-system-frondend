@@ -1,0 +1,46 @@
+export const urls = {
+  auth: {
+    signUp: "/auth/register",
+    signIn: "/auth/login",
+    refreshToken: "/auth/refresh",
+    signOut: "/auth/logout",
+    getProfile: "/auth/profile",
+    changePassword: "/auth/change-password",
+  },
+  tickets: {
+    getAll: "/tickets",
+    getMine: "/tickets/my",
+    create: "/tickets",
+    getById: (id: string) => `/tickets/${id}`,
+    update: (id: string) => `/tickets/${id}`,
+    remove: (id: string) => `/tickets/${id}`,
+  },
+  categories: {
+    getAll: "/categories",
+    create: "/categories",
+    getById: (id: string) => `/categories/${id}`,
+    update: (id: string) => `/categories/${id}`,
+    remove: (id: string) => `/categories/${id}`,
+  },
+  users: {
+    getAll: "/users",
+    create: "/users", 
+    getById: (id: string) => `/users/${id}`,
+    update: (id: string) => `/users/${id}`,
+    delete: (id: string) => `/users/${id}`,
+    resetpassword :(id: string) => `/users/${id}/reset-password`,
+  },
+  departments: {
+    getAll: "/departments",
+    create: "/departments",
+    getById: (id: string) => `/departments/${id}`,
+    update: (id: string) => `/departments/${id}`,
+    remove: (id: string) => `/departments/${id}`,
+  },
+  messages: {
+    getById: (id: string) => `/messages/${id}`,
+    create: "/messages",
+    update: (id: string) => `/messages/${id}`,
+    remove: (id: string) => `/messages/${id}`,
+  },
+};
