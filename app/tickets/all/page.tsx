@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import DeleteTicketModal from "@/components/delete/DeleteTicketModal";
 import EditTicketModal from "@/components/modals/EditTickets";
+import { TicketFilterForm } from "@/components/UI/Ticket/TicketFilterForm";
+import { TicketsListSection } from "@/components/UI/Ticket/TicketsListSection";
 
 type FormData = {
   status: string;
@@ -101,161 +103,28 @@ function TicketsAll() {
         <Header />
 
         <div className="flex flex-col gap-6 text-black px-8 py-10">
-          {/* فرم فیلتر */}
-          <form
-            className="flex flex-wrap items-end gap-6 bg-white p-6 rounded-lg shadow-md border border-gray-200"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="w-1/3 min-w-[200px]">
-              <label className="block text-sm font-medium mb-1">وضعیت</label>
-              <select
-                {...register("status")}
-                className="w-full p-2 border border-gray-400 rounded text-black"
-              >
-                <option value="">همه وضعیت‌ها</option>
-                <option value="در حال بررسی">در حال بررسی</option>
-                <option value="بسته">بسته</option>
-                <option value="حل شده">حل شده</option>
-                <option value="باز">باز</option>
-              </select>
-            </div>
+          <TicketFilterForm
+            categories={categories}
+            onFilter={onSubmit}
+            onReset={handleReset}
+          />
 
-            <div className="w-1/3 min-w-[200px]">
-              <label className="block text-sm font-medium mb-1">
-                دسته‌بندی
-              </label>
-              <select
-                {...register("category")}
-                className="w-full border border-gray-300 text-black rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">همه دسته‌بندی‌ها</option>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex gap-3 w-full sm:w-auto">
-              <button
-                type="submit"
-                className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-4 py-2 rounded hover:opacity-90"
-              >
-                <Funnel className="w-4 h-4" />
-                فیلتر
-              </button>
-              <button
-                type="button"
-                onClick={handleReset}
-                className="flex items-center justify-center gap-2 bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
-              >
-                <RotateCw className="w-4 h-4" />
-                پاک کردن
-              </button>
-            </div>
-          </form>
-
-          {/* جدول */}
-          <div className="col-span-2 border border-gray-400 rounded-lg overflow-hidden bg-white shadow">
-            <div className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-4 py-3 font-semibold flex items-center gap-2">
-              <List className="w-5 h-5" />
-              لیست تمام تیکت‌ها
-            </div>
-            <div className="p-4 overflow-x-auto">
-              <table className="w-full text-sm text-center border-collapse text-black">
-                <thead>
-                  <tr className="bg-gray-100 text-gray-700">
-                    <th className="p-2 border border-gray-400">شماره تیکت</th>
-                    <th className="p-2 border border-gray-400">عنوان</th>
-                    <th className="p-2 border border-gray-400">دسته‌بندی</th>
-                    <th className="p-2 border border-gray-400">وضعیت</th>
-                    <th className="p-2 border border-gray-400">اولویت</th>
-                    <th className="p-2 border border-gray-400">تاریخ ایجاد</th>
-                    <th className="p-2 border border-gray-400">
-                      آخرین بروزرسانی
-                    </th>
-                    <th className="p-2 border border-gray-400">عملیات</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tickets.map((u, i) => (
-                    <tr
-                      key={i}
-                      className="hover:bg-gray-50 cursor-pointer"
-                      onClick={() => router.push(`/tickets/${u._id}`)}
-                    >
-                      <td className="p-2 border border-gray-400">
-                        {u.ticketNumber}
-                      </td>
-                      <td className="p-2 border border-gray-400">{u.title}</td>
-                      <td className="p-2 border border-gray-400">
-                        <span className={categoryBadge}>{u.category.name}</span>
-                      </td>
-                      <td className="p-2 border border-gray-400">
-                        <span
-                          className={`px-2 py-1 rounded text-xs ${
-                            statusColors[u.status] || "bg-gray-300 text-black"
-                          }`}
-                        >
-                          {u.status}
-                        </span>
-                      </td>
-                      <td className="p-2 border border-gray-400">
-                        <span
-                          className={`px-2 py-1 rounded text-xs ${
-                            priorityColors[u.priority] ||
-                            "bg-gray-300 text-black"
-                          }`}
-                        >
-                          {u.priority}
-                        </span>
-                      </td>
-                      <td className="p-2 border border-gray-400">
-                        {u.createdAt
-                          ? new Date(u.createdAt).toLocaleDateString("fa-IR")
-                          : null}
-                      </td>
-                      <td className="p-2 border border-gray-400">
-                        {u.updatedAt
-                          ? new Date(u.updatedAt).toLocaleDateString("fa-IR")
-                          : null}
-                      </td>
-                      <td className="p-2 border border-gray-400 text-center space-x-2">
-                        <button
-                          className="p-1 text-blue-600 hover:bg-blue-100 rounded"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedTicket(u);
-                            setIsEditModalOpen(true);
-                          }}
-                        >
-                          <Edit2 className="w-4 h-4" />
-                        </button>
-                        <button
-                          className="p-1 text-red-600 hover:bg-red-100 rounded"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedTicket(u);
-                            setIsDeleteModalOpen(true);
-                          }}
-                        >
-                          <Trash className="w-4 h-4" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                  {tickets.length === 0 && (
-                    <tr>
-                      <td colSpan={8} className="p-4 text-center text-gray-500">
-                        هیچ تیکتی یافت نشد.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <TicketsListSection
+            title="لیست تمام تیکت‌ها"
+            tickets={tickets}
+            categoryBadge={categoryBadge}
+            statusColors={statusColors}
+            priorityColors={priorityColors}
+            onEdit={(t) => {
+              setSelectedTicket(t);
+              setIsEditModalOpen(true);
+            }}
+            onDelete={(t) => {
+              setSelectedTicket(t);
+              setIsDeleteModalOpen(true);
+            }}
+            onRowClick={(t) => router.push(`/tickets/${t._id}`)} 
+          />
         </div>
       </div>
 
