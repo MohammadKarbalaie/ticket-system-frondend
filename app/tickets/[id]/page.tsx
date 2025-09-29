@@ -19,7 +19,7 @@ import { User } from "@/types/User";
 interface Message {
   _id: string;
   body: string;
-  sender?: User; // optional برای جلوگیری از خطا
+  sender?: User;
   createdAt: string;
 }
 
@@ -34,10 +34,11 @@ const Ticketid = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState("");
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // اسکرول خودکار به آخر پیام‌ها
+  // اسکرول خودکار
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -80,6 +81,13 @@ const Ticketid = () => {
     );
   }, [id]);
 
+  // وقتی ticket تغییر کرد، وضعیت را ست کن
+  useEffect(() => {
+    if (ticket?.status) {
+      setStatus(ticket.status);
+    }
+  }, [ticket]);
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -94,11 +102,25 @@ const Ticketid = () => {
       });
 
       setNewMessage("");
-      // دوباره پیام‌ها را fetch می‌کنیم تا sender پر باشد
       const res = await apiClient.get(urls.messages.getById(id));
       setMessages(res.data);
     } catch (error) {
       console.error("Error sending message:", error);
+    }
+  };
+
+  const handleUpdateStatus = async () => {
+    if (!id) return; 
+
+    try {
+      await apiClient.put(urls.tickets.update(id), { status });
+
+      const res = await apiClient.get(urls.tickets.getById(id));
+      setTicket(res.data);
+
+      console.log("وضعیت با موفقیت بروزرسانی شد ✅");
+    } catch (error) {
+      console.error("Error updating status:", error);
     }
   };
 
@@ -292,27 +314,21 @@ const Ticketid = () => {
               <div className="p-4 flex flex-col gap-3">
                 <div>
                   <label className="block mb-1 text-sm">وضعیت</label>
-                  <select className="w-full border rounded p-2">
-                    <option>{ticket.status}</option>
-                    <option>باز</option>
-                    <option>در حال بررسی</option>
-                    <option>بسته شده</option>
-                    <option>حل شده</option>
+                  <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    className="w-full border rounded p-2"
+                  >
+                    <option value="باز">باز</option>
+                    <option value="در حال بررسی">در حال بررسی</option>
+                    <option value="بسته شده">بسته شده</option>
+                    <option value="حل شده">حل شده</option>
                   </select>
                 </div>
-                <div>
-                  <label className="block mb-1 text-sm">محول کردن به</label>
-                  <select className="w-full border rounded p-2">
-                    <option>
-                      {profile
-                        ? `${profile.fname} ${profile.lname}`
-                        : "کاربر لاگین شده"}
-                    </option>
-                    <option>پشتیبان دوم (support2)</option>
-                    <option>پشتیبان اول (support1)</option>
-                  </select>
-                </div>
-                <button className="bg-green-600 text-white py-2 rounded-md hover:bg-green-700">
+                <button
+                  onClick={handleUpdateStatus}
+                  className="bg-green-600 text-white py-2 rounded-md hover:bg-green-700"
+                >
                   بروزرسانی وضعیت
                 </button>
               </div>
