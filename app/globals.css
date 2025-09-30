@@ -24,3 +24,27 @@ body {
   color: var(--foreground);
   font-family: var(--font-vazir), sans-serif; 
 }
+
+@layer components{
+  .sidebar {
+    @apply fixed top-0 right-0 z-40 h-screen bg-[#6f5fc0] text-white shadow-lg
+           transform transition-transform duration-300 ease-in-out
+           translate-x-full md:translate-x-0 md:static md:w-[300px];
+    width: 20rem;
+  }
+
+  /* فقط برای موبایل */
+  @media (max-width: 767px) {
+    .sidebar-open {
+      @apply translate-x-0;
+    }
+    .sidebar-closed {
+      @apply translate-x-full;
+    }
+  }
+
+  .sidebar-toggle {
+    @apply fixed top-4 right-4 z-50 p-2 rounded-lg bg-[#6f5fc0] text-white md:hidden;
+  }
+}
+
