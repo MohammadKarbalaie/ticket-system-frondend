@@ -48,3 +48,28 @@ body {
   }
 }
 
+@layer components {
+  .header {
+    @apply flex items-center gap-4 font-bold text-[#6f5fc0] 
+           border-b border-gray-300 pb-2 mb-4 
+           text-lg md:text-xl lg:text-2xl xl:text-3xl;
+  }
+
+  .header-icon {
+    @apply w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8;
+  }
+}
+
+@layer components {
+  /* کارت‌های آماری بالای داشبورد */
+  .dashboard-cards {
+    @apply grid grid-cols-1 gap-4 py-4 
+           sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4;
+  }
+
+  /* بخش پایین (QuickMenu + CategoryStats + RecentTickets) */
+  .dashboard-bottom {
+    @apply grid grid-cols-1 gap-6 mt-6 
+           md:grid-cols-2 lg:grid-cols-3;
+  }
+}

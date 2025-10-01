@@ -55,50 +55,50 @@ function DashboardPage() {
   );
 
   return (
-    <div className="flex" dir="rtl">
-      <Sidebar />
-      <div className="flex-1 p-6">
-        <Header />
-        <div className="grid grid-cols-4 gap-6 py-4">
-          <DashboardCard
-            icon={Ticket}
-            iconBg="bg-sky-500"
-            value={alltotalTickets}
-            label="کل تیکت‌ها"
-          />
-          <DashboardCard
-            icon={TicketCheck}
-            iconBg="bg-yellow-500"
-            value={allopenTickets}
-            label="تیکت‌های باز"
-          />
+<div className="flex" dir="rtl">
+  <Sidebar />
+  <div className="flex-1 p-6">
+    <Header />
 
-          <DashboardCard
-            icon={TicketMinus}
-            iconBg="bg-green-500"
-            value={allclosedTickets}
-            label="تیکت‌های بسته"
-          />
-
-          <DashboardCard
-            icon={TicketPercent}
-            iconBg="bg-blue-500"
-            value={`${resolutionRate}%`}
-            label="نرخ حل"
-          />
-        </div>
-
-        {/* بخش پایین (منو و جدول) */}
-        <div className="grid grid-cols-3 gap-6 mt-6">
-          <div className="flex flex-col gap-6">
-            <QuickMenu />
-            <CategoryStats stats={categoryStats} />
-          </div>
-
-          <RecentTickets tickets={recentTickets} />
-        </div>
-      </div>
+    {/* کارت‌ها */}
+    <div className="dashboard-cards">
+      <DashboardCard
+        icon={Ticket}
+        iconBg="bg-sky-500"
+        value={alltotalTickets}
+        label="کل تیکت‌ها"
+      />
+      <DashboardCard
+        icon={TicketCheck}
+        iconBg="bg-yellow-500"
+        value={allopenTickets}
+        label="تیکت‌های باز"
+      />
+      <DashboardCard
+        icon={TicketMinus}
+        iconBg="bg-green-500"
+        value={allclosedTickets}
+        label="تیکت‌های بسته"
+      />
+      <DashboardCard
+        icon={TicketPercent}
+        iconBg="bg-blue-500"
+        value={`${resolutionRate}%`}
+        label="نرخ حل"
+      />
     </div>
+
+    {/* بخش پایین */}
+    <div className="dashboard-bottom">
+      <div className="flex flex-col gap-6">
+        <QuickMenu />
+        <CategoryStats stats={categoryStats} />
+      </div>
+      <RecentTickets tickets={recentTickets} />
+    </div>
+  </div>
+</div>
+
   );
 }
 

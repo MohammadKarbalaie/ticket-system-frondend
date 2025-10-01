@@ -1,7 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Ticket, Users, Settings, UserCircle, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Ticket,
+  Users,
+  Settings,
+  UserCircle,
+  LogOut,
+} from "lucide-react";
 
 type PageConfig = {
   title: string;
@@ -25,12 +32,15 @@ export function Header() {
   const pathname = usePathname();
 
   // مقادیر پیش‌فرض اگه مسیر توی دیکشنری نبود
-  const config = pageMap[pathname] || { title: "سیستم تیکت", icon: LayoutDashboard };
+  const config = pageMap[pathname] || {
+    title: "سیستم تیکت",
+    icon: LayoutDashboard,
+  };
   const Icon = config.icon;
 
   return (
-    <div className="flex items-center gap-2 text-2xl font-bold text-[#6f5fc0] border-b border-gray-300 pb-2 mb-4">
-      <Icon className="w-6 h-6" />
+    <div className="header">
+      <Icon className="header-icon" />
       <span>{config.title}</span>
     </div>
   );
