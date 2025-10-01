@@ -9,6 +9,7 @@ import { User } from "@/types/User";
 import { Activity, Info, PencilLine, Tag } from "lucide-react";
 import { useEffect, useState } from "react";
 import EditCategoryModal from "@/components/modals/EditCategories";
+import { Systemstatistics } from "@/components/UI/Settings/Systemstatistics";
 
 function SettingsPage() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -135,29 +136,33 @@ function SettingsPage() {
               آمار سیستم
             </div>
             <div className="grid grid-cols-2 py-15 gap-2 items-center justify-center p-4 text-gray-600">
-              <div className="bg-sky-300 p-6 text-center ">
-                <p className="text-sky-700 bold text-2xl">{allUsers}</p>
-                <p className="text-gray-600">کل کاربران</p>
-              </div>
+              <Systemstatistics
+                value={allUsers}
+                label="کل کاربران"
+                bgColor="bg-sky-300"
+                textColor="text-sky-700"
+              />
 
-              <div className="bg-blue-300 p-6 text-center ">
-                <p className="text-blue-700 bold text-2xl">{alltotalTickets}</p>
-                <p className="text-gray-600">کل تیکت ها</p>
-              </div>
+              <Systemstatistics
+                value={alltotalTickets}
+                label="کل تیکت ها"
+                bgColor="bg-blue-300"
+                textColor="text-blue-700"
+              />
 
-              <div className="bg-yellow-300 p-6 text-center ">
-                <p className="text-orange-700 bold text-2xl">
-                  {allopenTickets}
-                </p>
-                <p className="text-gray-600"> تیکت های باز</p>
-              </div>
+              <Systemstatistics
+                value={allopenTickets}
+                label="تیکت های باز"
+                bgColor="bg-yellow-300"
+                textColor="text-orange-700"
+              />
 
-              <div className="bg-green-300 p-6 text-center ">
-                <p className="text-green-700 bold text-2xl">
-                  {allclosedTickets}
-                </p>
-                <p className="text-gray-600">تیکت های بسته</p>
-              </div>
+              <Systemstatistics
+                value={allclosedTickets}
+                label="تیکت های بسته"
+                bgColor="bg-green-300"
+                textColor="text-green-700"
+              />
             </div>
           </div>
 
